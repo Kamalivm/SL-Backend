@@ -27,7 +27,7 @@ connecttoDB()
 app.post('/login',async function(request,response){
     
     try{
-        console.log("hello")
+        // console.log("hello")
         await Login.create({
             "email":request.body.email,
             "password":request.body.password
@@ -41,6 +41,21 @@ app.post('/login',async function(request,response){
             "status":"failure",
             "message":"entry not created",
             "error":error
+        })
+    }
+})
+
+app.get('/get-login',async function(request,response){
+    try{
+        // console.log("hello")
+        const Logind = await Login.find()
+        response.status(200).json(Logind)
+    }
+    catch(error){
+        response.status(500).json({
+            "status" : "failure",
+            "message" : "couldn/'t fetch entries",
+            "error" : error
         })
     }
 })
